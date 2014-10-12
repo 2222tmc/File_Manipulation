@@ -1,65 +1,62 @@
-// Yahtzee_trial.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 #include <fstream>
-
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+void copyfile();
+
+int main()
 {
-	
-	string initials;
-	string initialMatch = " ";
-	string allScore;
-	string holding;
-	string createOut;
+            string hold_initials;
+    int hold_score;
 
-	int ones, twos, threes, fours, fives, sixes, threeKind, fourKind, fullHouse, 
-		smallStraight, largeStraight, fiveKind, chance, upperBonus, upperTotal, 
-		lowerTotal, finalTotal;
+    ifstream in_score;
+    ofstream out_score;
 
-	int playerScore, count = 0;
+    in_score.open("highScore.txt");
+    out_score.open("scoreTemp.txt");
 
-	char x = 'r';
+    while (1 == 1)
+    {
+        in_score >> hold_initials >> hold_score;
+        if (hold_initials == "sentinel")
+        {
+            out_score << ' ' << hold_initials;
+            break;
+        }
+        out_score << ' ' << hold_initials << ' ' << hold_score + 11;
 
-	ifstream inScore;
-	ofstream outScore;
+    }
 
-	inScore.open("highScore.txt");
-	outScore.open("manipulateHigh.txt");
-	
-	//while (x == 'r')
-	//{
-	//	cout << "Welcome to Yahtzee"  << endl
-	//		<< "Please enter your initials: ";
-	//	cin >> initials;
-	//	cout << endl << initials;
+    in_score.close();
+    out_score.close();
 
-	//	while (initialMatch != initials)
-	//	{
-	//		inScore >> initialMatch >> playerScore;
-	//	}
-
-	//	cout << initialMatch <<  playerScore << endl;
-	//	cout << "Enter r to restart or q to quit";
-	//	cin >> x;
-	//}
-
-	while (inScore)
-	{
-		inScore >> holding;
-		createOut = createOut + " " + holding;
-		cout << createOut << endl;
-		if (count > 4)
-		{
-			break;
-		}
-		count++;
-	}
-	outScore << createOut;
-	return 0;
+    copyfile();
 }
 
+void copyfile()
+{
+    string hold_initials;
+    int hold_score;
+
+    ifstream in_score;
+    ofstream out_score;
+
+    in_score.open("scoreTemp.txt");
+    out_score.open("highScore.txt");
+
+    while (1 == 1)
+    {
+        in_score >> hold_initials >> hold_score;
+        if (hold_initials == "sentinel")
+        {
+            out_score << ' ' << hold_initials;
+            break;
+        }
+        out_score << ' ' << hold_initials << ' ' << hold_score;
+
+    }
+
+    in_score.close();
+    out_score.close();
+}
